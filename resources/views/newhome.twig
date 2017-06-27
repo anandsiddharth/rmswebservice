@@ -1,0 +1,140 @@
+<!DOCTYPE html >
+<head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <title>From Info Windows to a Database: Saving User-Added Form Data</title>
+    <style>
+        /* Always set the map height explicitly to define the size of the div
+         * element that contains the map. */
+        #map {
+            height: 100%;
+        }
+        /* Optional: Makes the sample page fill the window. */
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"
+            integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+            crossorigin="anonymous"></script>
+</head>
+<body>
+<div id="map" height="460px" width="100%"></div>
+<div id="form">
+    <form id="myForm" name="myForm" method="post" action="{{ path_for('home') }}">
+        <input type='hidden' id='ref' name='ref' value="{{ arg.ref }}"/>
+        <input type='hidden' id='token' name='token' value="{{ arg.token }}"/>
+        <label for="long">Longitude: </label><input type='text' id='long' name='long' value='25'/>
+        <br/>
+        <label for="lat">Latitude: </label><input type='text' id='lat' name='lat' value="55"/>
+        <br/>
+        {#<input type='button' value='Confirm Location' onclick='saveData()'/>#}
+    </form>
+</div>
+<div id="message">Location saved</div>
+<script>
+    var map;
+    var marker;
+    var infowindow;
+    var messagewindow;
+
+    function initMap() {
+        var Dubai = {lat: 24.207, lng: 55.555};
+        var Aref = document.getElementById('ref').value;
+        var Atoken = document.getElementById('token').value;
+//        var latlng = marker.getPosition();
+        var Along = document.getElementById('long');
+        var Alat = document.getElementById('lat');
+        var sub = '<input type="submit" name="submit" id="submit" " value="Confirm Location"/>';
+
+        map = new google.maps.Map(document.getElementById('map'), {
+            center: Dubai,
+            zoom: 9
+        });
+
+        // when click on marker
+        infowindow = new google.maps.InfoWindow({
+            content: document.getElementById('form')
+        })
+        // on submit
+        messagewindow = new google.maps.InfoWindow({
+            content: document.getElementById('message')
+        });
+
+
+
+
+//      show marker
+        google.maps.event.addListener(map, 'click', function(event) {
+            marker = new google.maps.Marker({
+                position: event.latLng,
+                map: map
+            });
+            _lng = marker.position.lng();
+            _lat = marker.position.lat();
+
+            Along.value = _lng;
+            Alat.value = _lat;
+
+            $('#myForm').append(sub);
+
+            // click on marker
+            google.maps.event.addListener(marker, 'click', function() {
+                infowindow.open(map, marker);
+            });
+        });
+    }
+
+    function saveData() {
+        var formData = JSON.stringify($("#myForm").serializeArray());
+        $.ajax({
+            type: "POST",
+            url: "http://localhost/~shiblie/rmswebservice/public/",
+            data: formData,
+            success: function () {
+            },
+            dataType: "json",
+            contentType: "application/json"
+        });
+    }
+
+
+
+
+
+//        downloadUrl(url, function(data, responseCode) {
+//
+//            if (responseCode == 200 && data.length <= 1) {
+//                infowindow.close();
+//                messagewindow.open(map, marker);
+//            }
+//        });
+//    }
+
+//    function downloadUrl(url, callback) {
+//        var request = window.ActiveXObject ?
+//            new ActiveXObject('Microsoft.XMLHTTP') :
+//            new XMLHttpRequest;
+//
+//        request.onreadystatechange = function() {
+//            if (request.readyState == 4) {
+//                request.onreadystatechange = doNothing;
+//                callback(request.responseText, request.status);
+//            }
+//        };
+
+//        request.open('GET', url, true);
+//        request.send(null);
+//    }
+
+//    function doNothing () {
+//    }
+
+</script>
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCT0OZHt0fbdY-6Q-098YDI6PYQlWtreJM&callback=initMap">
+</script>
+</body>
+</html>
