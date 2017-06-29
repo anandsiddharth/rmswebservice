@@ -10,5 +10,5 @@ use App\Controllers\HomeController;
 
 
 
-$app->get('/[{ref}[/{token}]]', HomeController::class . ':index')->setName('home');
+$app->get('/[{case}[/{token}]]', HomeController::class . ':index')->setName('home');
 $app->post('/', HomeController::class . ':postMap');

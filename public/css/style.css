@@ -1,0 +1,81 @@
+footer {
+    position: fixed;
+    height: auto;
+    padding: 15px;
+    bottom: 0;
+    width: 100%;
+    z-index: 100;
+}
+
+.loc-panel{
+    background: rgba(214,224,239,0.5);
+    width: 100%;
+    padding: 5px;
+    color: #282829;
+    font-weight: bolder;
+    font-size: 10px;
+}
+.panel-primary .panel-heading{
+    background-color : none;
+
+    color : #ede709;
+    border-color : #282829;
+}
+.btn{
+    border-radius: 20px;
+    border: 5px;
+}
+.btn-primary{
+    background-color : #ede709;
+    color : #282829;
+    border: 5px solid #ede709;
+    
+}
+.btn-info{
+    background-color : #282829;
+    color : #ede709;
+    border: 5px solid #282829;
+}
+.btn-info:hover,
+.btn-info:active,
+.btn-info:focus{
+    background-color: #282829;
+    border: 5px solid #ede709;
+
+}
+.btn-primary:hover,
+.btn-primary:active,
+.btn-primary:focus{
+    background-color : #ede709;
+    color : #282829;
+    border: 5px solid #282829;
+}
+
+.global-map-container{
+    height: 100%;
+    width: 100%;
+    position:  absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+.global-map-container .center-marker{
+    height: 150px;
+    width: 100px;
+    position:  absolute;
+    top: 50%;
+    margin-top: -75px;
+    left: 50%;
+    margin-left: -50px;
+    background-image: url(/img/Customer_pin.png);
+    background-size: 50px;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.global-map-container ng-map{
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    position: absolute;
+}

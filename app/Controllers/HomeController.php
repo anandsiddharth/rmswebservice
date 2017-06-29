@@ -16,35 +16,19 @@ use JeroenDesloovere\Geolocation\Geolocation;
 
 class HomeController extends Controller {
 
-    public function index ($request, $response, $args) {
-        $arg = $args;
-//        $other = $args;
-//        $result = $this->GEOcoder->geocoder->geocodeQuery(GeocodeQuery::create('Buckingham Palace, London'));
-//        $result = $this->GEOcoder->geocoder->reverseQuery(ReverseQuery::fromCoordinates(24,55));
-//        $arg = array_merge($result, $other);
-        return $this->view->render($response, 'home.twig', compact('arg'));
+    public function index ($request, $response, $case) {
+        if( empty($request->getAttribute("case")) || empty($request->getAttribute("token"))){
+            return $this->view->render($response, 'home/error.twig');
+        }
+        $case = $request->getAttribute('case');
+        $token = $request->getAttribute('token');
+        return $this->view->render($response, 'home/index.twig', compact('case', 'token'));
     }
 
     public function postMap ($request, $response, $args) {
-
-        // Validation
-        // Submitting Data
-        // Responding
-
-
-        echo $ref = $request->getParam('ref');
-        echo "<br/>";
-        echo $token = $request->getParam('token');
-        echo "<br/>";
-        echo $long = $request->getParam('long');
-        echo "<br/>";
-        echo $lat = $request->getParam('lat');
-
-
-        echo "Shiblie is right";
-        die();
-        // respond with JSON
-        return $this->view->render($response, 'response.twig', compact('arg'));
+        echo "s";
+        var_dump($_POST);
+        return $request->getParsedBody();
 
     }
 

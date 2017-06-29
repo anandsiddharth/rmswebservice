@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html ng-app="SimpleMarker">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/style.css" />
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
+<body ng-controller="DefaultController" ng-init="init()">
+
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">SimpleMarker</a>
+            </div>
+        </div>
+    
+    </nav>
+    <div class="container">
+        <button style="position: absolute; top: 70px; right: 50px;" type="button" ng-click="getMyLocation()" class="btn btn-info"><span class="visiblexs"><i class="fa fa-location-arrow"></i></span></button>
+    </div>
+
+    <div class="global-map-container">
+        <ng-map controls="false"  disable-default-u-i="true"></ng-map>
+        <div class="center-marker"></div>
+        
+    </div>
+
+    <footer>
+        <form action="/" method="post" >
+            <input  type="hidden" name="lat" ng-value="hiddenForm.lat" />
+            <input  type="hidden" name="lng" ng-value="hiddenForm.lng" />
+            <input  type="hidden" name="case" value="{{case}}" />
+            <input  type="hidden" name="token" value="{{token}}" />
+            
+
+            <div class="container">
+                <div class="row" ng-if="hiddenForm.lat != 0 && hiddenForm.lng != 0">
+                    <div class="col-md-12">
+                        
+                            <div class="loc-panel">
+                                Location:
+                                <span ng-bind="hiddenForm.lat"></span>,
+                                <span ng-bind="hiddenForm.lng"></span>
+                            </div>
+                        
+                    </div>
+                </div>
+                <div class="row" style="margin-bottom: 10px;">
+                    <div class="col-md-12">
+                        <textarea name="comment" ng-model="hiddenForm.comment" class="form-control" placeholder="comment"></textarea>
+                    </div>
+                </div> 
+                <div class="row">
+                    <div class="col-md-12 col-xs-12">
+                        <button class="btn btn-primary btn-block ">SUBMIT</button>
+                    </div>
+                    {#<div class="col-md-3 col-xs-3">
+                    </div>#}
+                </div>
+            </div>
+        </form>
+        
+    </footer>
+
+     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA7LJD1gaD3dXGYzqguoYqin4wte9kAd6E"></script>
+    <script src="/node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="/node_modules/angular/angular.min.js"></script>
+    <script src="/node_modules/ngmap/build/scripts/ng-map.min.js"></script>
+    <script src="/js/app.js"></script>
+</body>
+
+</html>
